@@ -23,6 +23,10 @@ export class ItemsComponent implements OnInit, OnDestroy {
         this.items = items;
       });
     }
+  
+  deleteItem(event, item) {
+    this.itemService.deleteItem(item);
+  }
     
   ngOnDestroy(): void {
     this.itemSubscription.unsubscribe();

@@ -1,6 +1,6 @@
 <div *ngIf="items?.length > 0; else noItems">
   <ul *ngFor="let i of items" class="collection">
-    <li class="collection-item">
+    <li (dblclick)="deleteItem($event, i)" class="collection-item">
       {{ i.title }}: {{ i.description }}
     </li>
   </ul>
