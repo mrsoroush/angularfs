@@ -13,6 +13,8 @@ export class ItemsComponent implements OnInit, OnDestroy {
   
   items: IItem[];
   itemSubscription: Subscription;
+  editState: boolean = false;
+  itemToEdit: IItem;
   
   constructor(private itemService: ItemService) { }
   
@@ -24,8 +26,24 @@ export class ItemsComponent implements OnInit, OnDestroy {
       });
     }
   
-  deleteItem(event, item) {
+  deleteItem(event, item: IItem) {
+    this.clearState();
     this.itemService.deleteItem(item);
+  }
+
+  editItem(event, item: IItem) {
+    this.editState = true;
+    this.itemToEdit = item;
+  }
+
+  updateItem(item: IItem) {
+    this.itemService.updateItem(item);
+    this.clearState();
+  }
+
+  clearState() {
+    this.editState = false;
+    this.itemToEdit = null;
   }
     
   ngOnDestroy(): void {

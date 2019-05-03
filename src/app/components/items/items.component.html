@@ -1,7 +1,28 @@
 <div *ngIf="items?.length > 0; else noItems">
   <ul *ngFor="let i of items" class="collection">
-    <li (dblclick)="deleteItem($event, i)" class="collection-item">
+    <li class="collection-item">
       {{ i.title }}: {{ i.description }}
+      <a href="#" class="secondary-content">
+        <i (click)="editItem($event, i)" class="fa fa-pencil"></i>
+        <i *ngIf="editState && itemToEdit.id == i.id" (click)="clearState()" class="fa fa-compress"></i>
+      </a>
+
+      <div *ngIf="editState && itemToEdit.id == i.id">
+        <form (ngSubmit)="updateItem(i)">
+          <div class="row">
+            <div class="input-field col s6">
+              <input type="text" [(ngModel)]="i.title" name="title">
+            </div>
+            <div class="input-field col s6">
+              <input type="text" [(ngModel)]="i.description" name="description">
+            </div>
+                <input type="submit" value="Update Item" class="btn orange">
+                {{ ' ' }}
+                <button (click)="deleteItem($event, i)" class="btn red">Delete Item</button>
+            </div>
+        </form>
+      </div>
+
     </li>
   </ul>
 </div>
